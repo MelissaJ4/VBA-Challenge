@@ -1,13 +1,15 @@
+Sub StockAnalysis()
 
-Sub Stocks()
 
 'Have the Macro loop through each worksheet
 'Looping code from in-class credit card example
 'LastRow VBA from Census in-class assignment
 'Finding opening and closing price difference help from another student (Walgama)
 
+
     Dim ws As Worksheet
     For Each ws In ThisWorkbook.Worksheets
+  
     
       ' Set an initial variable for holding the stock name
       Dim ticker As String
@@ -19,12 +21,15 @@ Sub Stocks()
       ' Keep track of the location for each stock name in the summary table
       Dim Summary_Table_Row As Long
       Summary_Table_Row = 2
-      
+      Dim i As Double
+      Dim j As Double
+        i = 2
+        j = 3
       
       'Yearly change is Column F (OpenPrice)- Column C (ClosePrice)
       'Percentage is YC/OpenPrice x 100
       Dim OpenPrice As Double
-      OpenPrice = ws.Cells(2, 3).Value
+      OpenPrice = ws.Cells(i, j).Value
       Dim ClosePrice As Double
 
       
@@ -56,21 +61,21 @@ Sub Stocks()
     
         ' Check if we are still within the same ticker symbol, if it is not...
             If ws.Cells(Row + 1, 1).Value <> ws.Cells(Row, 1).Value Then
-        
+             OpenPrice = ws.Cells(i, 3)
+             
               ' Set the ticker
               ticker = ws.Cells(Row, 1).Value
         
               ' Add to the total stock volume
               TotalStockVolume = TotalStockVolume + ws.Cells(Row, 7).Value
               
-              'Find ClosePrice to combine it with OpenPrice
-              ClosePrice = ws.Cells(Row, 6).Value
-              
               'Find difference between open and close prices for yearly change
-              YearlyChange = (ClosePrice - OpenPrice)
+              YearlyChange = ws.Cells(Row, 6).Value - ws.Cells(i, j).Value
               
               'Find the PercentChange YC/OP x 100
               PercentChange = (YearlyChange / OpenPrice)
+              
+              i = Row + 1
               
               ' Print the stock in the Summary Table
               ws.Range("J" & Summary_Table_Row).Value = ticker
@@ -149,3 +154,5 @@ Sub Stocks()
 Next ws
 
 End Sub
+
+
