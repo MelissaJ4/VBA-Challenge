@@ -1,6 +1,4 @@
 # VBA-Challenge
-Module 2
-# VBA-Challenge
 # Module 2
 # Repo includes Excel screenshots
 # Repo includes text file of the VBA used
@@ -53,8 +51,7 @@ Sub StockAnalysis()
             ws.Cells(1, 11).Value = "YearlyChange"
             ws.Cells(1, 12).Value = "PercentChange"
             ws.Cells(1, 13).Value = "TotalStockVolume"
-            ws.Cells(1, 16).Value = "TickerName"
-            ws.Cells(1, 17).Value = "TotalValue"
+            ws.Cells(1, 16).Value = "TotalValue"
             ws.Cells(2, 15).Value = "Greatest % Increase"
             ws.Cells(3, 15).Value = "Greatest % Decrease"
             ws.Cells(4, 15).Value = "Greatest Total Volume"
@@ -130,7 +127,7 @@ Sub StockAnalysis()
          
          
            ' Check if the YearlyChange is less than or equal to 0...
-             ElseIf Cells(Row, 11) < 0 Then
+             ElseIf ws.Cells(Row, 11) < 0 Then
          
                ' Color the negative stock red
                ws.Cells(Row, 11).Interior.ColorIndex = 46
@@ -150,7 +147,7 @@ Sub StockAnalysis()
          
          
            ' Check if the YearlyChange is less than or equal to 0...
-             ElseIf Cells(Row, 12) < 0 Then
+             ElseIf ws.Cells(Row, 12) < 0 Then
          
                ' Color the negative stock red
                ws.Cells(Row, 12).Interior.ColorIndex = 46
@@ -158,10 +155,17 @@ Sub StockAnalysis()
          End If
 
      Next Row
+     
+  'Find most and least successful stocks
+  
+ws.Range("P2") = WorksheetFunction.Max(ws.Range("L:L"))
+ws.Range("P3") = WorksheetFunction.Min(ws.Range("L:L"))
+ws.Range("P2:P3").NumberFormat = "0.00%"
+ws.Range("P4") = WorksheetFunction.Max(ws.Range("M:M"))
 
- 
+ws.Columns("J:P").AutoFit
+
 Next ws
 
 End Sub
-
 
